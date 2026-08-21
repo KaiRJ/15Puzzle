@@ -1,7 +1,5 @@
 #include "Tile.hpp"
 
-#include <iostream>
-
 Tile::Tile(int number) : m_number {number} {}
 
 int Tile::getNumber() const { return m_number; }
