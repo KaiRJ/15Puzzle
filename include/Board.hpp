@@ -5,16 +5,18 @@
 
 #include <array>
 #include <iostream>
+#include <mdspan>
 
 class Board
 {
   public:
     Board();
 
-  private:
-    std::array<std::array<Tile, 4>, 4> m_board {};
-};
+    friend std::ostream& operator<<(std::ostream& out, const Board& board);
 
-std::ostream& operator<<(std::ostream& out, const Board& board);
+  private:
+    static constexpr int s_size {4};
+    std::array<Tile, s_size * s_size> m_board {};
+};
 
 #endif

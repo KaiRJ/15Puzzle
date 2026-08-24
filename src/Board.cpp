@@ -1,24 +1,36 @@
 #include "Board.hpp"
 
+#include <print>
+
 // Increase amount of new lines if your board isn't
 // at the very bottom of the console
 constexpr int g_consoleLines {25};
 
 Board::Board()
 {
-    for (int row {0}; row < std::size(m_board); ++row)
+    for (size_t i {0}; i < std::size(m_board) - 1; ++i)
     {
-        for (int col {0}; col < std::size(m_board[row]); ++col)
-        {
-            // TODO: set the number of each tile
-        }
+        m_board[i] = Tile(i + 1);
     }
 
-    // TODO: set last tile to 0
+    m_board[std::size(m_board) - 1] = Tile(0);
 }
 
 std::ostream& operator<<(std::ostream& out, const Board& board)
 {
-    // TODO: implement
+    for (size_t i {0}; i < g_consoleLines; ++i)
+        std::cout << "\n";
+
+    for (size_t col {0}; col < board.s_size; ++col)
+    {
+        for (size_t row {0}; row < board.s_size; ++row)
+        {
+            size_t idx {row + (col * board.s_size)};
+            out << board.m_board[idx];
+        }
+
+        std::println("");
+    }
+
     return out;
 }
