@@ -1,5 +1,7 @@
 #include "UserInput.hpp"
+#include "Direction.hpp"
 
+#include <cassert>
 #include <iostream>
 #include <limits>
 
@@ -7,7 +9,7 @@ namespace UserInput
 {
     bool isValidCommand(char c)
     {
-        return c == 'w' || c == 'a' || c == 's' || c == 'd' || c == 'q';
+        return c == 'w' || c == 's' || c == 'a' || c == 'd' || c == 'q';
     }
 
     void ignoreLine()
@@ -30,5 +32,22 @@ namespace UserInput
             c = getCharacter();
 
         return c;
+    }
+
+    Direction getDirection(char c)
+    {
+        switch (c)
+        {
+        case 'w':
+            return {Direction::up};
+        case 's':
+            return {Direction::down};
+        case 'a':
+            return {Direction::left};
+        case 'd':
+            return {Direction::right};
+        default:
+            assert(0 && "Unsupported direction was passed!");
+        }
     }
 } // namespace UserInput
