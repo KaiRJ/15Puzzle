@@ -7,15 +7,10 @@
 int main()
 {
     Board board {};
-    std::cout << board;
-
-    std::cout << "Random direction... " << Direction::randomDirection() << "\n";
-    std::cout << "Random direction... " << Direction::randomDirection() << "\n";
-    std::cout << "Random direction... " << Direction::randomDirection() << "\n";
-    std::cout << "Random direction... " << Direction::randomDirection() << "\n\n";
 
     while (true)
     {
+        std::cout << board;
         std::cout << "Enter a command: ";
         char command {UserInput::getCommand()};
         if (command == 'q')
@@ -25,7 +20,7 @@ int main()
         }
 
         Direction direction {UserInput::getDirection(command)};
-        std::cout << "You entered direction: " << direction << "\n";
+        board.moveTile(direction);
     }
 
     return 0;

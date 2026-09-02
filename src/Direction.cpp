@@ -20,10 +20,10 @@ Direction operator-(Direction direction)
         return {Direction::down};
     case Direction::down:
         return {Direction::up};
-    case Direction::left:
-        return {Direction::right};
     case Direction::right:
         return {Direction::left};
+    case Direction::left:
+        return {Direction::right};
     default:
         assert(0 && "Unsupported direction was passed !");
     }
@@ -37,10 +37,10 @@ std::ostream& operator<<(std::ostream& out, const Direction& direction)
         return out << "up";
     case Direction::down:
         return out << "down";
-    case Direction::left:
-        return out << "left";
     case Direction::right:
         return out << "right";
+    case Direction::left:
+        return out << "left";
     default:
         assert(0 && "Unsupported direction was passed!");
     }

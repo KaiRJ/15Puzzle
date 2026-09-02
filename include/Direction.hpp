@@ -17,7 +17,6 @@ class Direction
 
     Direction() = delete;
     Direction(Type type);
-
     ~Direction() = default;
 
     Type getType() const;
