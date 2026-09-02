@@ -10,12 +10,27 @@ constexpr int g_consoleLines {25};
 
 Board::Board()
 {
-    for (size_t i {0}; i < std::size(m_board) - 1; ++i)
+    for (size_t i {0}; i < std::size(m_tiles) - 1; ++i)
     {
-        m_board[i] = Tile(i + 1);
+        m_tiles[i] = Tile(i + 1);
     }
 
-    m_board[std::size(m_board) - 1] = Tile(0);
+    m_tiles[std::size(m_tiles) - 1] = Tile(0);
+}
+
+void Board::randomise()
+{
+    for (int i {0}; i < 1000;)
+    {
+        if (moveTile(Direction::randomDirection()))
+            ++i;
+    }
+}
+
+bool Board::playerWon() const
+{
+    static Board s_solved {};
+    return s_solved == *this;
 }
 
 bool Board::moveTile(Direction direction)
@@ -36,8 +51,8 @@ Point Board::getEmptyTilePoint()
     {
         for (int y {0}; y < s_size; ++y)
         {
-            int tile_idx {x + (y * s_size)};
-            if (m_board[tile_idx].getNumber() == 0)
+            int idx {x + (y * s_size)};
+            if (m_tiles[idx].getNumber() == 0)
             {
                 return {x, y};
             }
@@ -57,7 +72,7 @@ void Board::switchTiles(Point pt1, Point pt2)
 {
     int tile1 {pt1.x + (pt1.y * s_size)};
     int tile2 {pt2.x + (pt2.y * s_size)};
-    std::swap(m_board[tile1], m_board[tile2]);
+    std::swap(m_tiles[tile1], m_tiles[tile2]);
 }
 
 std::ostream& operator<<(std::ostream& out, const Board& board)
@@ -65,16 +80,33 @@ std::ostream& operator<<(std::ostream& out, const Board& board)
     for (size_t i {0}; i < g_consoleLines; ++i)
         std::cout << "\n";
 
-    for (size_t col {0}; col < board.s_size; ++col)
+    for (size_t x {0}; x < Board::s_size; ++x)
     {
-        for (size_t row {0}; row < board.s_size; ++row)
+        for (size_t y {0}; y < Board::s_size; ++y)
         {
-            size_t idx {row + (col * board.s_size)};
-            out << board.m_board[idx];
+            size_t idx {y + (x * Board::s_size)};
+            out << board.m_tiles[idx];
         }
 
         std::println("");
     }
 
     return out;
+}
+
+bool operator==(const Board& board1, const Board& board2)
+{
+    for (int x = 0; x < Board::s_size; ++x)
+    {
+        for (int y = 0; y < Board::s_size; ++y)
+        {
+            int idx {x + (y * Board::s_size)};
+            if (board1.m_tiles[idx].getNumber() != board2.m_tiles[idx].getNumber())
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }

@@ -7,8 +7,9 @@
 int main()
 {
     Board board {};
+    board.randomise();
 
-    while (true)
+    while (!board.playerWon())
     {
         std::cout << board;
         std::cout << "Enter a command: ";
@@ -23,5 +24,6 @@ int main()
         board.moveTile(direction);
     }
 
+    std::cout << "\n\nYou won!\n\n";
     return 0;
 }
