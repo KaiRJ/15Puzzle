@@ -1,0 +1,20 @@
+* 15 puzzle
+
+The [[https://en.wikipedia.org/wiki/15_puzzle][15 puzzle]] is a sliding puzzle. It has 15 square tiles numbered 1 to 15 in a frame that is 4 tile positions high and 4 tile positions wide, with one unoccupied position. Tiles in the same row or column of the open position can be moved by sliding them horizontally or vertically, respectively. The goal of the puzzle is to place the tiles in numerical order (from left to right, top to bottom). This project was built as an exercise in applying modern C++ concepts, object-oriented programming, and basic game logic.
+
+** Building
+#+begin_src bash
+git clone git@github.com:KaiRJ/15Puzzle.git
+cd 15Puzzle
+
+mkdir build
+cd build
+cmake ..
+make
+#+end_src
+
+Run the game with:
+
+#+begin_src bash
+./15Puzzle
+#+end_src
